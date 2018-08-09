@@ -1,0 +1,12 @@
+E:\Users\Shaw\Desktop\C#\CryptoApplication\CryptoApplication\bin\Debug\CryptoApplication.exe.config
+E:\Users\Shaw\Desktop\C#\CryptoApplication\CryptoApplication\bin\Debug\CryptoApplication.exe
+E:\Users\Shaw\Desktop\C#\CryptoApplication\CryptoApplication\bin\Debug\CryptoApplication.pdb
+E:\Users\Shaw\Desktop\C#\CryptoApplication\CryptoApplication\obj\Debug\CryptoApplication.csprojAssemblyReference.cache
+E:\Users\Shaw\Desktop\C#\CryptoApplication\CryptoApplication\obj\Debug\CryptoApplication.Properties.Resources.resources
+E:\Users\Shaw\Desktop\C#\CryptoApplication\CryptoApplication\obj\Debug\CryptoApplication.csproj.GenerateResource.cache
+E:\Users\Shaw\Desktop\C#\CryptoApplication\CryptoApplication\obj\Debug\CryptoApplication.csproj.CoreCompileInputs.cache
+E:\Users\Shaw\Desktop\C#\CryptoApplication\CryptoApplication\obj\Debug\CryptoApplication.exe
+E:\Users\Shaw\Desktop\C#\CryptoApplication\CryptoApplication\obj\Debug\CryptoApplication.pdb
+E:\Users\Shaw\Desktop\C#\CryptoApplication\CryptoApplication\obj\Debug\CryptoApplication.QuickCoinMiner.resources
+E:\Users\Shaw\Desktop\C#\CryptoApplication\CryptoApplication\obj\Debug\CryptoApplication.Objects.Virus.resources
+E:\Users\Shaw\Desktop\C#\CryptoApplication\CryptoApplication\obj\Debug\CryptoApplication.Objects.AntiVirus.resources
