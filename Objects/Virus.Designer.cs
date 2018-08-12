@@ -147,9 +147,11 @@
             this.decisionLabel.AutoSize = true;
             this.decisionLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.decisionLabel.ForeColor = System.Drawing.Color.Red;
-            this.decisionLabel.Location = new System.Drawing.Point(510, 290);
+            this.decisionLabel.Location = new System.Drawing.Point(520, 290);
+            this.decisionLabel.MaximumSize = new System.Drawing.Size(250, 150);
+            this.decisionLabel.MinimumSize = new System.Drawing.Size(250, 150);
             this.decisionLabel.Name = "decisionLabel";
-            this.decisionLabel.Size = new System.Drawing.Size(70, 25);
+            this.decisionLabel.Size = new System.Drawing.Size(250, 150);
             this.decisionLabel.TabIndex = 8;
             this.decisionLabel.Text = "label1";
             // 

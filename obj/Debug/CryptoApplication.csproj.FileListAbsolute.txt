@@ -10,3 +10,5 @@ E:\Users\Shaw\Desktop\C#\CryptoApplication\CryptoApplication\obj\Debug\CryptoApp
 E:\Users\Shaw\Desktop\C#\CryptoApplication\CryptoApplication\obj\Debug\CryptoApplication.QuickCoinMiner.resources
 E:\Users\Shaw\Desktop\C#\CryptoApplication\CryptoApplication\obj\Debug\CryptoApplication.Objects.Virus.resources
 E:\Users\Shaw\Desktop\C#\CryptoApplication\CryptoApplication\obj\Debug\CryptoApplication.Objects.AntiVirus.resources
+E:\Users\Shaw\Desktop\C#\CryptoApplication\CryptoApplication\bin\Debug\Tulpep.NotificationWindow.dll
+E:\Users\Shaw\Desktop\C#\CryptoApplication\CryptoApplication\obj\Debug\CryptoApplication.csproj.CopyComplete

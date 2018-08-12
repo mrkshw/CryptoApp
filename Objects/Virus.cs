@@ -15,16 +15,20 @@ namespace CryptoApplication.Objects
     public partial class Virus : Form
     {
 
-        
+
         private int HackAttempt = 0;
         private int HackProbability = 0;
         private Wallet Wallet { get; }
 
+        private Label mainResourceLabel;
+
         private int secondsLeft = 30;
         internal static bool intendToPay = false;
 
-        public Virus(Wallet wallet)
+        public Virus(Wallet wallet, Label resourceLabel)
         {
+            mainResourceLabel = resourceLabel;
+          
             Wallet = wallet;
             InitializeComponent();
             hackTimer.Start();
@@ -32,17 +36,17 @@ namespace CryptoApplication.Objects
 
 
         private string _ransomLabelText;
-   
+
         private int count = 0;
 
-        bool Hack()
+        private bool Hack()
         {
             if (Wallet.IsEncrypted) return false;
             HackAttempt++;
 
             Random random = new Random();
-            int randNumber = random.Next(0,100) + 11;
-                
+            int randNumber = random.Next(0, 100) + 11;
+
 
             if (randNumber < HackProbability)
             {
@@ -73,6 +77,7 @@ namespace CryptoApplication.Objects
             firstLineLabel.Text = "_";
             writingTimer.Start();
             decisionLabel.Text = "";
+            mainResourceLabel.Text = "ENCRYPTED!";
         }
 
         private void writingTimer_Tick(object sender, EventArgs e)
@@ -87,7 +92,7 @@ namespace CryptoApplication.Objects
 
             else
                 firstLineLabel.Text = _ransomLabelText.Substring(0, count);
-            }
+        }
 
         private void countdownTimer_Tick(object sender, EventArgs e)
         {
@@ -96,21 +101,54 @@ namespace CryptoApplication.Objects
             if (secondsLeft == 0)
             {
                 countdownTimer.Stop();
-                QuickCoinMiner.finalizeDecision();
+                CalculateOutcome();
             }
+        }
+
+        private void CalculateOutcome()
+        {
+            if (intendToPay)
+            {
+                var random = new Random();
+                var randomInt = random.Next(1, 100);
+                var honestHack = (randomInt > 20) ? true : false;
+
+                if (!honestHack)
+                {
+                    Wallet.Balance = 0;
+                    mainResourceLabel.Text = Wallet.Balance.ToString();
+                    MessageBox.Show("Sorry the hacker did not decide to refund what was stolen. You have lost everything.");
+                }
+                else if (honestHack)
+                {
+                    Wallet.Balance -= 20;
+                    mainResourceLabel.Text = Wallet.Balance.ToString();
+                    MessageBox.Show(
+                        "You paid the ransom, and the hacker stayed true to his word. He has only deducted 20 QuikCoin.");
+                }
+
+            }
+            else if (!intendToPay)
+            {
+                Wallet.Balance = 0;
+                mainResourceLabel.Text = Wallet.Balance.ToString();
+                MessageBox.Show("You decided to start from scratch, accepting what was stolen as a loss.");
+
+            }
+            Hide();
         }
 
         private void payRansomButton_Click(object sender, EventArgs e)
         {
             intendToPay = true;
-            decisionLabel.Text = decisionLabel.Text == "" ? "You will pay the ransom." 
+            decisionLabel.Text = decisionLabel.Text == "" ? "You will pay the ransom."
                                                           : "Instead, you will pay the ransom.";
         }
-        
+
         private void refuseButton_Click(object sender, EventArgs e)
         {
             intendToPay = false;
-            decisionLabel.Text = decisionLabel.Text == "" ? "You will not pay the ransom." 
+            decisionLabel.Text = decisionLabel.Text == "" ? "You will not pay the ransom."
                                                           : "Instead, you will not pay the ransom.";
         }
 
@@ -128,7 +166,5 @@ namespace CryptoApplication.Objects
             ResetHack();
             this.Show();
         }
-
-
     }
 }

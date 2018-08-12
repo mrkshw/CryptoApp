@@ -28,12 +28,16 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AntiVirus));
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
             this.panel4 = new System.Windows.Forms.Panel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.button1 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
+            this.scrollUpTimer = new System.Windows.Forms.Timer(this.components);
+            this.ScrollDownTimer = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -70,13 +74,33 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(90, 350);
+            this.button1.Location = new System.Drawing.Point(10, 370);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(160, 80);
             this.button1.TabIndex = 1;
-            this.button1.Text = "button1";
+            this.button1.Text = "Yes Please";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(180, 370);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(160, 80);
+            this.button2.TabIndex = 2;
+            this.button2.Text = "No Thanks";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // scrollUpTimer
+            // 
+            this.scrollUpTimer.Interval = 10;
+            this.scrollUpTimer.Tick += new System.EventHandler(this.scrollUpTimer_Tick);
+            // 
+            // ScrollDownTimer
+            // 
+            this.ScrollDownTimer.Interval = 10;
+            this.ScrollDownTimer.Tick += new System.EventHandler(this.ScrollDownTimer_Tick);
             // 
             // AntiVirus
             // 
@@ -85,12 +109,14 @@
             this.AutoSize = true;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(155)))), ((int)(((byte)(103)))));
             this.ClientSize = new System.Drawing.Size(350, 464);
+            this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.pictureBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "AntiVirus";
+            this.Opacity = 0D;
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -108,5 +134,8 @@
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Timer scrollUpTimer;
+        private System.Windows.Forms.Timer ScrollDownTimer;
     }
 }

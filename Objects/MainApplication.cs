@@ -5,6 +5,7 @@ using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
 using CryptoApplication.Objects;
+using Tulpep.NotificationWindow;
 
 namespace CryptoApplication
 {
@@ -12,19 +13,7 @@ namespace CryptoApplication
     {
         static Wallet _wallet;
         private static Virus _virus;
-
-        private static string balanceAsStaticString
-        {
-            get
-            {
-                return _wallet.Balance.ToString();
-
-            }
-            set
-            {
-                resourceLabel.Text 
-            }
-        }
+        private static AntiVirus _antiVirus;
 
         // Class Fields
         private int MinutesLeft { get; set; } = 10;
@@ -42,7 +31,8 @@ namespace CryptoApplication
         private void QuickCoinMiner_Load(object sender, EventArgs e)
         {
             _wallet = new Wallet(this);
-            _virus = new Virus(_wallet);
+            _virus = new Virus(_wallet, resourceLabel);
+            _antiVirus = new AntiVirus(_wallet, resourceLabel);
             PrivateFontCollection pfc = new PrivateFontCollection();
             pfc.AddFontFile(@"E:\Users\Shaw\Desktop\C#\CryptoApplication\CryptoApplication\Resources\Static-2.ttf");
             captchaTextBox.Font = new Font(pfc.Families[0], 27, FontStyle.Regular);
@@ -273,35 +263,10 @@ namespace CryptoApplication
         {
             _wallet.IncreaseBalance();
             resourceLabel.Text = _wallet.Balance.ToString();
+
+            _antiVirus.Show();
+
         }
 
-        internal void finalizeDecision()
-        {
-            if (Virus.intendToPay)
-            {
-                var random = new Random();
-                var randomInt = random.Next(1, 100);
-
-                var honestHack = (randomInt > 20) ? true : false;
-
-                if (!honestHack)
-                {
-                    _wallet.Balance = 0;
-                    resourceLabel.Text = _wallet.Balance.ToString();
-                    MessageBox.Show("Sorry the hacker did not decide to refund what was stolen. You have lost everything.");
-                }
-                else if (honestHack)
-                {
-                    MessageBox.Show(
-                        "You paid the ransom, and the hacker stayed true to his word. He has only deducted 20 QuikCoin.");
-                }
-
-            } else if (!Virus.intendToPay)
-            {
-                MessageBox.Show("You decided to start from scratch, accepting what was stolen as a loss.");
-                
-            }
-            _virus.Hide();
-        }
     }
 }
