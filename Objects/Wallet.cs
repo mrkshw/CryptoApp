@@ -1,49 +1,42 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace CryptoApplication.Objects
 {
+    /// <summary>
+    /// Basic Wallet class used to manage a player's resource.
+    /// </summary>
     public class Wallet
     {
-        internal bool IsEncrypted { get; set; } = false;
-        internal decimal Balance { get; set; }
+        //Instance variables
+        internal decimal Balance { get; set; }         
+        internal bool IsEncrypted { get; set; }
+        internal bool IsProtected { get; set; }
+        public bool HackSuccessful { get; set; }
 
-        private Form MainApplication { get; set; }
-
-        public Wallet(Form mainApplication)
+        /// <summary>
+        /// Constructor for the wallet object. Initializes the Wallet's Balance to 0, and declares
+        /// that the wallet is neither Encrypted nor protected.
+        /// </summary>
+        public Wallet()
         {
             Balance = 0;
-            MainApplication = mainApplication;
+            IsEncrypted = false;
+            IsProtected = false;
         }
 
-
-
+        /// <summary>
+        /// Method to increase the balance of the wallet. The method generates a 9 character string
+        /// of numbers, and concatenates a "0." at the beginning of the string to create a decimal
+        /// string. This string is then parsed into a Double, and then added onto the balance. 
+        /// </summary>
         public void IncreaseBalance()
         {
-            
-            Random random = new Random();
-            string r = "0.";
+            var random = new Random();
+            var r = "0.";
             int i;
-            for (i = 1; i < 11; i++)
-            {
-                r += random.Next(0, 9).ToString();
-            }
+            for (i = 1; i < 11; i++) r += random.Next(0, 9).ToString();
             var crypto = double.Parse(r);
-            Balance += (decimal)crypto;
-        }
-
-        public void EncryptBalance()
-        {
-            IsEncrypted = true;
-        }
-
-        public void payRansom()
-        {
-            
+            Balance += (decimal) crypto;
         }
     }
 }

@@ -54,11 +54,23 @@
     <Compile Include="Objects\AntiVirus.Designer.cs">
       <DependentUpon>AntiVirus.cs</DependentUpon>
     </Compile>
+    <Compile Include="Objects\IntroForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Objects\IntroForm.Designer.cs">
+      <DependentUpon>IntroForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Objects\MainApplication.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Objects\MainApplication.Designer.cs">
       <DependentUpon>MainApplication.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Objects\PostGameWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Objects\PostGameWindow.Designer.cs">
+      <DependentUpon>PostGameWindow.cs</DependentUpon>
     </Compile>
     <Compile Include="Objects\Virus.cs">
       <SubType>Form</SubType>
@@ -72,8 +84,14 @@
     <EmbeddedResource Include="Objects\AntiVirus.resx">
       <DependentUpon>AntiVirus.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Objects\IntroForm.resx">
+      <DependentUpon>IntroForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Objects\MainApplication.resx">
       <DependentUpon>MainApplication.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Objects\PostGameWindow.resx">
+      <DependentUpon>PostGameWindow.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Objects\Virus.resx">
       <DependentUpon>Virus.cs</DependentUpon>

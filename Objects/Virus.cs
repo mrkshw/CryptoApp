@@ -1,170 +1,191 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Diagnostics;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using System.Drawing.Text;
+using System.Globalization;
+using System.Windows.Forms;
 
 namespace CryptoApplication.Objects
 {
     public partial class Virus : Form
     {
-
-
-        private int HackAttempt = 0;
-        private int HackProbability = 0;
         private Wallet Wallet { get; }
+        public bool IsActive { get; set; }
+        internal static bool IntendToPay { get; set; }
 
-        private Label mainResourceLabel;
+        private readonly Label _mainResourceLabel;
+        private readonly TextBox _userInputTextBox;
+        private readonly Timer _investmentTimer;
+        private readonly bool _investUpgradeBought;
 
-        private int secondsLeft = 30;
-        internal static bool intendToPay = false;
+        private int _count;
+        private int _hackAttempt;
+        private int _hackProbability;
+        private int _secondsLeft = 30;
 
-        public Virus(Wallet wallet, Label resourceLabel)
+        private string _ransomLabelText;
+
+        public Virus(Wallet wallet, Label resourceLabel, TextBox userInput, Timer investTimer, bool investmentUpgrade)
         {
-            mainResourceLabel = resourceLabel;
-          
+            _mainResourceLabel = resourceLabel;
+            _userInputTextBox = userInput;
+            _investmentTimer = investTimer;
+            _investUpgradeBought = investmentUpgrade;
             Wallet = wallet;
             InitializeComponent();
             hackTimer.Start();
         }
 
-
-        private string _ransomLabelText;
-
-        private int count = 0;
+        
+       
 
         private bool Hack()
         {
             if (Wallet.IsEncrypted) return false;
-            HackAttempt++;
+            _hackAttempt++;
 
-            Random random = new Random();
-            int randNumber = random.Next(0, 100) + 11;
+            var random = new Random();
+            var randNumber = random.Next(0, 100) + 11;
 
 
-            if (randNumber < HackProbability)
+            if (randNumber < _hackProbability)
             {
                 Wallet.IsEncrypted = true;
                 return true;
+            }
 
-            }
+            if (_hackAttempt < 5)
+                _hackProbability += 1;
             else
-            {
-                if (HackAttempt < 5)
-                {
-                    HackProbability += 1;
-                }
-                else
-                {
-                    HackProbability += 5;
-                }
-            }
+                _hackProbability += 5;
             return false;
         }
 
         private void Virus_Load(object sender, EventArgs e)
         {
-            PrivateFontCollection pfc = new PrivateFontCollection();
-            pfc.AddFontFile(@"E:\Users\Shaw\Desktop\C#\CryptoApplication\CryptoApplication\Resources\earwig factory rg.ttf");
-            firstLineLabel.Font = new Font(pfc.Families[0], 25, FontStyle.Regular);
-            _ransomLabelText = firstLineLabel.Text;
-            firstLineLabel.Text = "_";
+            //var pfc = new PrivateFontCollection();
+            //pfc.AddFontFile(
+            //    @"E:\Users\Shaw\Desktop\C#\CryptoApplication\CryptoApplication\Resources\earwig factory rg.ttf");
+            //RansomLabel.Font = new Font(pfc.Families[0], 25, FontStyle.Regular);
+            _ransomLabelText = RansomLabel.Text;
+            RansomLabel.Text = "_";
             writingTimer.Start();
-            decisionLabel.Text = "";
-            mainResourceLabel.Text = "ENCRYPTED!";
+            DecisionLabel.Text = "";
+            _mainResourceLabel.Text = "ENCRYPTED!";
         }
 
-        private void writingTimer_Tick(object sender, EventArgs e)
+        private void WritingTimer_Tick(object sender, EventArgs e)
         {
-            count++;
+            _count++;
 
-            if (count > _ransomLabelText.Length)
+            if (_count > _ransomLabelText.Length)
             {
                 writingTimer.Stop();
                 countdownTimer.Start();
+                PayRansomButton.Enabled = true;
+                RefuseButton.Enabled = true;
             }
 
             else
-                firstLineLabel.Text = _ransomLabelText.Substring(0, count);
-        }
-
-        private void countdownTimer_Tick(object sender, EventArgs e)
-        {
-            secondsLeft--;
-            secondsLeftLabel.Text = secondsLeft.ToString();
-            if (secondsLeft == 0)
             {
-                countdownTimer.Stop();
-                CalculateOutcome();
+                RansomLabel.Text = _ransomLabelText.Substring(0, _count);
             }
         }
 
+        private void CountdownTimer_Tick(object sender, EventArgs e)
+        {
+            _secondsLeft--;
+            SecondsLeftLabel.Text = _secondsLeft.ToString();
+            if (_secondsLeft != 0) return;
+            countdownTimer.Stop();
+            CalculateOutcome();
+        }
+
+
         private void CalculateOutcome()
         {
-            if (intendToPay)
+            if (IntendToPay)
             {
                 var random = new Random();
                 var randomInt = random.Next(1, 100);
-                var honestHack = (randomInt > 20) ? true : false;
+                var honestHack = randomInt > 20;
 
                 if (!honestHack)
                 {
                     Wallet.Balance = 0;
-                    mainResourceLabel.Text = Wallet.Balance.ToString();
-                    MessageBox.Show("Sorry the hacker did not decide to refund what was stolen. You have lost everything.");
+                    _mainResourceLabel.Text = Wallet.Balance.ToString(CultureInfo.CurrentCulture);
+                    MessageBox.Show(
+                        "Sorry the hacker did not decide to refund what was stolen. You have lost everything.");
                 }
-                else if (honestHack)
+                else
                 {
                     Wallet.Balance -= 20;
-                    mainResourceLabel.Text = Wallet.Balance.ToString();
+                    _mainResourceLabel.Text = Wallet.Balance.ToString(CultureInfo.CurrentCulture);
                     MessageBox.Show(
                         "You paid the ransom, and the hacker stayed true to his word. He has only deducted 20 QuikCoin.");
                 }
-
             }
-            else if (!intendToPay)
+            else if (!IntendToPay)
             {
                 Wallet.Balance = 0;
-                mainResourceLabel.Text = Wallet.Balance.ToString();
+                _mainResourceLabel.Text = Wallet.Balance.ToString(CultureInfo.CurrentCulture);
                 MessageBox.Show("You decided to start from scratch, accepting what was stolen as a loss.");
-
             }
+
+            IsActive = false;
+            _userInputTextBox.Enabled = true;
+            if (_investUpgradeBought)
+                _investmentTimer.Start();
             Hide();
         }
 
-        private void payRansomButton_Click(object sender, EventArgs e)
+        private void PayRansomButton_Click(object sender, EventArgs e)
         {
-            intendToPay = true;
-            decisionLabel.Text = decisionLabel.Text == "" ? "You will pay the ransom."
-                                                          : "Instead, you will pay the ransom.";
+            IntendToPay = true;
+            DecisionLabel.Text = DecisionLabel.Text == ""
+                ? "You will pay the ransom."
+                : "Instead, you will pay the ransom.";
         }
 
-        private void refuseButton_Click(object sender, EventArgs e)
+        private void RefuseButton_Click(object sender, EventArgs e)
         {
-            intendToPay = false;
-            decisionLabel.Text = decisionLabel.Text == "" ? "You will not pay the ransom."
-                                                          : "Instead, you will not pay the ransom.";
+            IntendToPay = false;
+            DecisionLabel.Text = DecisionLabel.Text == ""
+                ? "You will not pay the ransom."
+                : "Instead, you will not pay the ransom.";
         }
 
         private void ResetHack()
         {
-            HackAttempt = 0;
-            HackProbability = 0;
+            _hackAttempt = 0;
+            _hackProbability = 0;
         }
 
-        private void hackTimer_Tick(object sender, EventArgs e)
-        {
+        private void HackTimer_Tick(object sender, EventArgs e)
+        {      
             var hackSuccessful = Hack();
             if (!hackSuccessful) return;
+            ConfirmHack();
+        }
+
+        private void ConfirmHack()
+        {
+            if (Wallet.IsProtected)
+            {
+                MessageBox.Show("QuikSave has just blocked a ransomware attack. Your wallet is safe.");
+                hackTimer.Stop();
+                return;
+            }
+
+            if (_investmentTimer.Enabled)
+            {
+                _investmentTimer.Stop();
+            }
+            _userInputTextBox.Enabled = false;
+            Wallet.HackSuccessful = true;
+            IsActive = true;
             hackTimer.Stop();
             ResetHack();
-            this.Show();
+            Show();
         }
     }
 }

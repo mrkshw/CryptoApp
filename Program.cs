@@ -1,5 +1,6 @@
 using System;
 using System.Windows.Forms;
+using CryptoApplication.Objects;
 
 
 namespace CryptoApplication
@@ -15,8 +16,7 @@ namespace CryptoApplication
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new QuickCoinMiner());
-          
+            Application.Run(new IntroForm());
         }
     }
 }

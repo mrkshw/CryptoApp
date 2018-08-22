@@ -117,12 +117,11 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="firstLineLabel.Text" xml:space="preserve">
-    <value>OOPS! YOUR QUIKCOIN BALANCE HAS BEEN HACKED! IF YOU WANT IT BACK, YOU MUST PAY US 20 QUIKCOIN, AND WE MIGHT GIVE YOU YOUR WALLET BACK IF WE FEEL LIKE IT. TRY ANYTHING CLEVER AND WE WILL ERASE YOUR BALANCE. IN 30 SECONDS, WE WILL ERASE YOUR BALANCE. MAKE YOUR CHOICE.
-</value>
+  <data name="RansomLabel.Text" xml:space="preserve">
+    <value>Ooops... Your QuikCoin balance has been hacked. If you would like to get your QuikCoin back, you must pay us 20 QuikCoin for our decryption service for your wallet. There is no way of recovering your wallet without our decryption service, so please do not waste your time. Any attempt made to recover your QuikCoin wallet will result in your wallet being wiped. In 30 seconds, your balance will be wiped. Please make your choice.</value>
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="pictureBox1.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="SkullImage.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         R0lGODlhygDKAOcAAAAAAAAAMwAAZgAAmQAAzAAA/zMAADMAMzMAZjMAmTMAzDMA/2YAAGYAM2YAZmYA
         mWYAzGYA/5kAAJkAM5kAZpkAmZkAzJkA/8wAAMwAM8wAZswAmcwAzMwA//8AAP8AM/8AZv8Amf8AzP8A

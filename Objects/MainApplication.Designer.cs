@@ -1,8 +1,6 @@
-using System.Drawing;
 using System.Windows.Forms;
-using CryptoApplication.Objects;
 
-namespace CryptoApplication
+namespace CryptoApplication.Objects
 {
     partial class QuickCoinMiner
     {
@@ -35,195 +33,209 @@ namespace CryptoApplication
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(QuickCoinMiner));
-            this.cashoutTimer = new System.Windows.Forms.Timer(this.components);
-            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.warningTimer = new System.Windows.Forms.Timer(this.components);
-            this.investmentTimer = new System.Windows.Forms.Timer(this.components);
+            this.CashoutTimer = new System.Windows.Forms.Timer(this.components);
+            this.WarningTimer = new System.Windows.Forms.Timer(this.components);
+            this.InvestmentTimer = new System.Windows.Forms.Timer(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
-            this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.walletTab = new System.Windows.Forms.TabPage();
+            this.TabControl = new System.Windows.Forms.TabControl();
+            this.WalletTab = new System.Windows.Forms.TabPage();
+            this.CashoutButton = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
-            this.resourceLabel = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.cashoutTimerLabel = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.earnTab = new System.Windows.Forms.TabPage();
-            this.verifiedLabel = new System.Windows.Forms.Label();
-            this.verificationWarningLabel = new System.Windows.Forms.Label();
+            this.ResourceLabel = new System.Windows.Forms.Label();
+            this.BalanceTitleLabel = new System.Windows.Forms.Label();
+            this.CashoutTimerLabel = new System.Windows.Forms.Label();
+            this.CashoutAvailableLabel = new System.Windows.Forms.Label();
+            this.EarnTab = new System.Windows.Forms.TabPage();
+            this.VerifiedLabel = new System.Windows.Forms.Label();
+            this.VerificationWarningLabel = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
+            this.EarnLabel = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.verifyTextBox = new System.Windows.Forms.TextBox();
-            this.captchaTextBox = new System.Windows.Forms.TextBox();
-            this.verifyButton = new System.Windows.Forms.Button();
-            this.generateButton = new System.Windows.Forms.Button();
-            this.investTab = new System.Windows.Forms.TabPage();
-            this.autoGenerateButton = new System.Windows.Forms.Button();
-            this.removeSymbolsButton = new System.Windows.Forms.Button();
-            this.incomeDoubleButton = new System.Windows.Forms.Button();
-            this.removeLettersButton = new System.Windows.Forms.Button();
+            this.VerifyTextBox = new System.Windows.Forms.TextBox();
+            this.CaptchaTextBox = new System.Windows.Forms.TextBox();
+            this.VerifyButton = new System.Windows.Forms.Button();
+            this.GenerateButton = new System.Windows.Forms.Button();
+            this.InvestTab = new System.Windows.Forms.TabPage();
+            this.AutoGenerateButton = new System.Windows.Forms.Button();
+            this.RemoveSymbolsButton = new System.Windows.Forms.Button();
+            this.IncomeDoubleButton = new System.Windows.Forms.Button();
+            this.RemoveLettersButton = new System.Windows.Forms.Button();
+            this.AntiVirusTimer = new System.Windows.Forms.Timer(this.components);
             this.panel1.SuspendLayout();
-            this.tabControl1.SuspendLayout();
-            this.walletTab.SuspendLayout();
-            this.earnTab.SuspendLayout();
-            this.investTab.SuspendLayout();
+            this.TabControl.SuspendLayout();
+            this.WalletTab.SuspendLayout();
+            this.EarnTab.SuspendLayout();
+            this.InvestTab.SuspendLayout();
             this.SuspendLayout();
             // 
-            // cashoutTimer
+            // CashoutTimer
             // 
-            this.cashoutTimer.Interval = 1000;
-            this.cashoutTimer.Tick += new System.EventHandler(this.cashoutTimer_Tick);
+            this.CashoutTimer.Interval = 1000;
+            this.CashoutTimer.Tick += new System.EventHandler(this.CashoutTimer_Tick);
             // 
-            // toolTip1
+            // WarningTimer
             // 
-            this.toolTip1.ToolTipTitle = "Generate a code";
+            this.WarningTimer.Interval = 3000;
+            this.WarningTimer.Tick += new System.EventHandler(this.WarningTimer_Tick);
             // 
-            // warningTimer
+            // InvestmentTimer
             // 
-            this.warningTimer.Interval = 3000;
-            this.warningTimer.Tick += new System.EventHandler(this.warningTimer_Tick);
-            // 
-            // investmentTimer
-            // 
-            this.investmentTimer.Interval = 5000;
-            this.investmentTimer.Tick += new System.EventHandler(this.investmentTimer_Tick);
+            this.InvestmentTimer.Interval = 5000;
+            this.InvestmentTimer.Tick += new System.EventHandler(this.InvestmentTimer_Tick);
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.tabControl1);
+            this.panel1.Controls.Add(this.TabControl);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(404, 261);
             this.panel1.TabIndex = 9;
             // 
-            // tabControl1
+            // TabControl
             // 
-            this.tabControl1.Appearance = System.Windows.Forms.TabAppearance.FlatButtons;
-            this.tabControl1.Controls.Add(this.walletTab);
-            this.tabControl1.Controls.Add(this.earnTab);
-            this.tabControl1.Controls.Add(this.investTab);
-            this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabControl1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
-            this.tabControl1.ItemSize = new System.Drawing.Size(100, 30);
-            this.tabControl1.Location = new System.Drawing.Point(0, 0);
-            this.tabControl1.Name = "tabControl1";
-            this.tabControl1.Padding = new System.Drawing.Point(10, 3);
-            this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(404, 261);
-            this.tabControl1.TabIndex = 8;
+            this.TabControl.Appearance = System.Windows.Forms.TabAppearance.FlatButtons;
+            this.TabControl.Controls.Add(this.WalletTab);
+            this.TabControl.Controls.Add(this.EarnTab);
+            this.TabControl.Controls.Add(this.InvestTab);
+            this.TabControl.Cursor = System.Windows.Forms.Cursors.Arrow;
+            this.TabControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.TabControl.Font = new System.Drawing.Font("Century Gothic", 14F);
+            this.TabControl.ItemSize = new System.Drawing.Size(100, 30);
+            this.TabControl.Location = new System.Drawing.Point(0, 0);
+            this.TabControl.Name = "TabControl";
+            this.TabControl.Padding = new System.Drawing.Point(10, 3);
+            this.TabControl.SelectedIndex = 0;
+            this.TabControl.Size = new System.Drawing.Size(404, 261);
+            this.TabControl.TabIndex = 8;
             // 
-            // walletTab
+            // WalletTab
             // 
-            this.walletTab.BackColor = System.Drawing.SystemColors.Control;
-            this.walletTab.Controls.Add(this.button1);
-            this.walletTab.Controls.Add(this.resourceLabel);
-            this.walletTab.Controls.Add(this.label2);
-            this.walletTab.Controls.Add(this.cashoutTimerLabel);
-            this.walletTab.Controls.Add(this.label1);
-            this.walletTab.Location = new System.Drawing.Point(4, 34);
-            this.walletTab.Name = "walletTab";
-            this.walletTab.Padding = new System.Windows.Forms.Padding(3);
-            this.walletTab.Size = new System.Drawing.Size(396, 223);
-            this.walletTab.TabIndex = 0;
-            this.walletTab.Text = "Wallet";
-            this.walletTab.ToolTipText = "View your QuikCoin Wallet";
+            this.WalletTab.BackColor = System.Drawing.Color.Thistle;
+            this.WalletTab.Controls.Add(this.CashoutButton);
+            this.WalletTab.Controls.Add(this.button1);
+            this.WalletTab.Controls.Add(this.ResourceLabel);
+            this.WalletTab.Controls.Add(this.BalanceTitleLabel);
+            this.WalletTab.Controls.Add(this.CashoutTimerLabel);
+            this.WalletTab.Controls.Add(this.CashoutAvailableLabel);
+            this.WalletTab.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.WalletTab.Location = new System.Drawing.Point(4, 34);
+            this.WalletTab.Name = "WalletTab";
+            this.WalletTab.Padding = new System.Windows.Forms.Padding(3);
+            this.WalletTab.Size = new System.Drawing.Size(396, 223);
+            this.WalletTab.TabIndex = 0;
+            this.WalletTab.Text = "Wallet";
+            this.WalletTab.ToolTipText = "View your QuikCoin Wallet";
+            // 
+            // CashoutButton
+            // 
+            this.CashoutButton.BackColor = System.Drawing.Color.Thistle;
+            this.CashoutButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.CashoutButton.Location = new System.Drawing.Point(320, 140);
+            this.CashoutButton.Name = "CashoutButton";
+            this.CashoutButton.Size = new System.Drawing.Size(70, 43);
+            this.CashoutButton.TabIndex = 10;
+            this.CashoutButton.Text = "Cash Out";
+            this.CashoutButton.UseVisualStyleBackColor = false;
+            this.CashoutButton.Visible = false;
+            this.CashoutButton.Click += new System.EventHandler(this.CashoutButton_Click);
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(40, 180);
+            this.button1.Location = new System.Drawing.Point(20, 180);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(30, 30);
             this.button1.TabIndex = 11;
             this.button1.Text = "button1";
             this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.button1.Visible = false;
+            this.button1.Click += new System.EventHandler(this.Button1_Click);
             // 
-            // resourceLabel
+            // ResourceLabel
             // 
-            this.resourceLabel.AutoSize = true;
-            this.resourceLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F);
-            this.resourceLabel.Location = new System.Drawing.Point(150, 100);
-            this.resourceLabel.Name = "resourceLabel";
-            this.resourceLabel.Size = new System.Drawing.Size(80, 37);
-            this.resourceLabel.TabIndex = 10;
-            this.resourceLabel.Text = "0.00";
-            this.resourceLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.ResourceLabel.AutoSize = true;
+            this.ResourceLabel.Font = new System.Drawing.Font("Century Gothic", 24F);
+            this.ResourceLabel.Location = new System.Drawing.Point(150, 100);
+            this.ResourceLabel.Name = "ResourceLabel";
+            this.ResourceLabel.Size = new System.Drawing.Size(80, 39);
+            this.ResourceLabel.TabIndex = 10;
+            this.ResourceLabel.Text = "0.00";
+            this.ResourceLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // label2
+            // BalanceTitleLabel
             // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Italic);
-            this.label2.Location = new System.Drawing.Point(70, 60);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(211, 24);
-            this.label2.TabIndex = 9;
-            this.label2.Text = "Your QuikCoin Balance:";
+            this.BalanceTitleLabel.AutoSize = true;
+            this.BalanceTitleLabel.Font = new System.Drawing.Font("Century Gothic", 14F, System.Drawing.FontStyle.Italic);
+            this.BalanceTitleLabel.Location = new System.Drawing.Point(70, 70);
+            this.BalanceTitleLabel.Name = "BalanceTitleLabel";
+            this.BalanceTitleLabel.Size = new System.Drawing.Size(227, 22);
+            this.BalanceTitleLabel.TabIndex = 9;
+            this.BalanceTitleLabel.Text = "Your QuikCoin Balance:";
             // 
-            // cashoutTimerLabel
+            // CashoutTimerLabel
             // 
-            this.cashoutTimerLabel.AutoSize = true;
-            this.cashoutTimerLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F);
-            this.cashoutTimerLabel.ForeColor = System.Drawing.Color.Red;
-            this.cashoutTimerLabel.Location = new System.Drawing.Point(320, 190);
-            this.cashoutTimerLabel.Name = "cashoutTimerLabel";
-            this.cashoutTimerLabel.Size = new System.Drawing.Size(66, 26);
-            this.cashoutTimerLabel.TabIndex = 7;
-            this.cashoutTimerLabel.Text = "10:00";
+            this.CashoutTimerLabel.AutoSize = true;
+            this.CashoutTimerLabel.Font = new System.Drawing.Font("Century Gothic", 16F);
+            this.CashoutTimerLabel.ForeColor = System.Drawing.Color.Red;
+            this.CashoutTimerLabel.Location = new System.Drawing.Point(320, 190);
+            this.CashoutTimerLabel.Name = "CashoutTimerLabel";
+            this.CashoutTimerLabel.Size = new System.Drawing.Size(66, 25);
+            this.CashoutTimerLabel.TabIndex = 7;
+            this.CashoutTimerLabel.Text = "10:00";
             // 
-            // label1
+            // CashoutAvailableLabel
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F);
-            this.label1.Location = new System.Drawing.Point(110, 190);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(214, 26);
-            this.label1.TabIndex = 6;
-            this.label1.Text = "Cashout available in:";
+            this.CashoutAvailableLabel.AutoSize = true;
+            this.CashoutAvailableLabel.Font = new System.Drawing.Font("Century Gothic", 16F);
+            this.CashoutAvailableLabel.Location = new System.Drawing.Point(80, 190);
+            this.CashoutAvailableLabel.Name = "CashoutAvailableLabel";
+            this.CashoutAvailableLabel.Size = new System.Drawing.Size(240, 25);
+            this.CashoutAvailableLabel.TabIndex = 6;
+            this.CashoutAvailableLabel.Text = "Cashout available in:";
             // 
-            // earnTab
+            // EarnTab
             // 
-            this.earnTab.Controls.Add(this.verifiedLabel);
-            this.earnTab.Controls.Add(this.verificationWarningLabel);
-            this.earnTab.Controls.Add(this.label5);
-            this.earnTab.Controls.Add(this.label4);
-            this.earnTab.Controls.Add(this.label3);
-            this.earnTab.Controls.Add(this.verifyTextBox);
-            this.earnTab.Controls.Add(this.captchaTextBox);
-            this.earnTab.Controls.Add(this.verifyButton);
-            this.earnTab.Controls.Add(this.generateButton);
-            this.earnTab.Location = new System.Drawing.Point(4, 34);
-            this.earnTab.Name = "earnTab";
-            this.earnTab.Padding = new System.Windows.Forms.Padding(3);
-            this.earnTab.Size = new System.Drawing.Size(396, 223);
-            this.earnTab.TabIndex = 1;
-            this.earnTab.Text = "Earn";
-            this.earnTab.ToolTipText = "Earn QuikCoin by completing key codes.";
-            this.earnTab.UseVisualStyleBackColor = true;
+            this.EarnTab.BackColor = System.Drawing.Color.Thistle;
+            this.EarnTab.Controls.Add(this.VerifiedLabel);
+            this.EarnTab.Controls.Add(this.VerificationWarningLabel);
+            this.EarnTab.Controls.Add(this.label5);
+            this.EarnTab.Controls.Add(this.EarnLabel);
+            this.EarnTab.Controls.Add(this.label3);
+            this.EarnTab.Controls.Add(this.VerifyTextBox);
+            this.EarnTab.Controls.Add(this.CaptchaTextBox);
+            this.EarnTab.Controls.Add(this.VerifyButton);
+            this.EarnTab.Controls.Add(this.GenerateButton);
+            this.EarnTab.Location = new System.Drawing.Point(4, 34);
+            this.EarnTab.Name = "EarnTab";
+            this.EarnTab.Padding = new System.Windows.Forms.Padding(3);
+            this.EarnTab.Size = new System.Drawing.Size(396, 223);
+            this.EarnTab.TabIndex = 1;
+            this.EarnTab.Text = "Earn";
+            this.EarnTab.ToolTipText = "Earn QuikCoin by completing key codes.";
             // 
-            // verifiedLabel
+            // VerifiedLabel
             // 
-            this.verifiedLabel.AutoSize = true;
-            this.verifiedLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.verifiedLabel.ForeColor = System.Drawing.Color.ForestGreen;
-            this.verifiedLabel.Location = new System.Drawing.Point(270, 200);
-            this.verifiedLabel.Name = "verifiedLabel";
-            this.verifiedLabel.Size = new System.Drawing.Size(105, 16);
-            this.verifiedLabel.TabIndex = 8;
-            this.verifiedLabel.Text = "Code Accepted!";
-            this.verifiedLabel.Visible = false;
+            this.VerifiedLabel.AutoSize = true;
+            this.VerifiedLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.VerifiedLabel.ForeColor = System.Drawing.Color.ForestGreen;
+            this.VerifiedLabel.Location = new System.Drawing.Point(270, 200);
+            this.VerifiedLabel.Name = "VerifiedLabel";
+            this.VerifiedLabel.Size = new System.Drawing.Size(105, 16);
+            this.VerifiedLabel.TabIndex = 8;
+            this.VerifiedLabel.Text = "Code Accepted!";
+            this.VerifiedLabel.Visible = false;
             // 
-            // verificationWarningLabel
+            // VerificationWarningLabel
             // 
-            this.verificationWarningLabel.AutoSize = true;
-            this.verificationWarningLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.verificationWarningLabel.ForeColor = System.Drawing.Color.Red;
-            this.verificationWarningLabel.Location = new System.Drawing.Point(240, 130);
-            this.verificationWarningLabel.Name = "verificationWarningLabel";
-            this.verificationWarningLabel.Size = new System.Drawing.Size(139, 16);
-            this.verificationWarningLabel.TabIndex = 7;
-            this.verificationWarningLabel.Text = "Please enter the code";
-            this.verificationWarningLabel.Visible = false;
+            this.VerificationWarningLabel.AutoSize = true;
+            this.VerificationWarningLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.VerificationWarningLabel.ForeColor = System.Drawing.Color.Red;
+            this.VerificationWarningLabel.Location = new System.Drawing.Point(240, 130);
+            this.VerificationWarningLabel.Name = "VerificationWarningLabel";
+            this.VerificationWarningLabel.Size = new System.Drawing.Size(139, 16);
+            this.VerificationWarningLabel.TabIndex = 7;
+            this.VerificationWarningLabel.Text = "Please enter the code";
+            this.VerificationWarningLabel.Visible = false;
             // 
             // label5
             // 
@@ -235,15 +247,15 @@ namespace CryptoApplication
             this.label5.TabIndex = 6;
             this.label5.Text = "QuikCoin!";
             // 
-            // label4
+            // EarnLabel
             // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.label4.Location = new System.Drawing.Point(150, 90);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(188, 20);
-            this.label4.TabIndex = 5;
-            this.label4.Text = "and enter it below to earn";
+            this.EarnLabel.AutoSize = true;
+            this.EarnLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.EarnLabel.Location = new System.Drawing.Point(150, 90);
+            this.EarnLabel.Name = "EarnLabel";
+            this.EarnLabel.Size = new System.Drawing.Size(188, 20);
+            this.EarnLabel.TabIndex = 5;
+            this.EarnLabel.Text = "and enter it below to earn";
             // 
             // label3
             // 
@@ -255,105 +267,119 @@ namespace CryptoApplication
             this.label3.TabIndex = 4;
             this.label3.Text = "Please generate a code";
             // 
-            // verifyTextBox
+            // VerifyTextBox
             // 
-            this.verifyTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 22F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.verifyTextBox.HideSelection = false;
-            this.verifyTextBox.Location = new System.Drawing.Point(90, 150);
-            this.verifyTextBox.MaxLength = 11;
-            this.verifyTextBox.Name = "verifyTextBox";
-            this.verifyTextBox.Size = new System.Drawing.Size(210, 41);
-            this.verifyTextBox.TabIndex = 3;
-            this.verifyTextBox.TabStop = false;
-            this.verifyTextBox.KeyUp += new System.Windows.Forms.KeyEventHandler(this.verifyTextBox_KeyUp);
+            this.VerifyTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 22F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.VerifyTextBox.HideSelection = false;
+            this.VerifyTextBox.Location = new System.Drawing.Point(80, 150);
+            this.VerifyTextBox.MaxLength = 11;
+            this.VerifyTextBox.Name = "VerifyTextBox";
+            this.VerifyTextBox.Size = new System.Drawing.Size(210, 41);
+            this.VerifyTextBox.TabIndex = 3;
+            this.VerifyTextBox.TabStop = false;
+            this.VerifyTextBox.KeyUp += new System.Windows.Forms.KeyEventHandler(this.VerifyTextBox_KeyUp);
             // 
-            // captchaTextBox
+            // CaptchaTextBox
             // 
-            this.captchaTextBox.Enabled = false;
-            this.captchaTextBox.Font = new System.Drawing.Font("High Tower Text", 28F, ((System.Drawing.FontStyle)(((System.Drawing.FontStyle.Italic | System.Drawing.FontStyle.Underline) 
+            this.CaptchaTextBox.Enabled = false;
+            this.CaptchaTextBox.Font = new System.Drawing.Font("High Tower Text", 28F, ((System.Drawing.FontStyle)(((System.Drawing.FontStyle.Italic | System.Drawing.FontStyle.Underline) 
                 | System.Drawing.FontStyle.Strikeout))), System.Drawing.GraphicsUnit.Point, ((byte)(1)), true);
-            this.captchaTextBox.Location = new System.Drawing.Point(10, 10);
-            this.captchaTextBox.MaxLength = 10;
-            this.captchaTextBox.Name = "captchaTextBox";
-            this.captchaTextBox.ReadOnly = true;
-            this.captchaTextBox.Size = new System.Drawing.Size(370, 51);
-            this.captchaTextBox.TabIndex = 1;
-            this.captchaTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.CaptchaTextBox.Location = new System.Drawing.Point(10, 10);
+            this.CaptchaTextBox.MaxLength = 10;
+            this.CaptchaTextBox.Name = "CaptchaTextBox";
+            this.CaptchaTextBox.ReadOnly = true;
+            this.CaptchaTextBox.Size = new System.Drawing.Size(370, 51);
+            this.CaptchaTextBox.TabIndex = 1;
+            this.CaptchaTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // verifyButton
+            // VerifyButton
             // 
-            this.verifyButton.Location = new System.Drawing.Point(310, 150);
-            this.verifyButton.Name = "verifyButton";
-            this.verifyButton.Size = new System.Drawing.Size(70, 40);
-            this.verifyButton.TabIndex = 2;
-            this.verifyButton.Text = "Verify";
-            this.verifyButton.UseVisualStyleBackColor = true;
-            this.verifyButton.Click += new System.EventHandler(this.verifyButton_Click);
+            this.VerifyButton.BackColor = System.Drawing.Color.Plum;
+            this.VerifyButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.VerifyButton.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.VerifyButton.Location = new System.Drawing.Point(300, 150);
+            this.VerifyButton.Name = "VerifyButton";
+            this.VerifyButton.Size = new System.Drawing.Size(80, 40);
+            this.VerifyButton.TabIndex = 2;
+            this.VerifyButton.Text = "Verify";
+            this.VerifyButton.UseVisualStyleBackColor = false;
+            this.VerifyButton.Click += new System.EventHandler(this.VerifyButton_Click);
             // 
-            // generateButton
+            // GenerateButton
             // 
-            this.generateButton.Location = new System.Drawing.Point(10, 70);
-            this.generateButton.Name = "generateButton";
-            this.generateButton.Size = new System.Drawing.Size(120, 40);
-            this.generateButton.TabIndex = 0;
-            this.generateButton.Text = "Generate";
-            this.generateButton.UseVisualStyleBackColor = true;
-            this.generateButton.Click += new System.EventHandler(this.generateButton_Click);
+            this.GenerateButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.GenerateButton.Location = new System.Drawing.Point(10, 70);
+            this.GenerateButton.Name = "GenerateButton";
+            this.GenerateButton.Size = new System.Drawing.Size(120, 40);
+            this.GenerateButton.TabIndex = 0;
+            this.GenerateButton.Text = "Generate";
+            this.GenerateButton.UseVisualStyleBackColor = true;
+            this.GenerateButton.Click += new System.EventHandler(this.GenerateButton_Click);
             // 
-            // investTab
+            // InvestTab
             // 
-            this.investTab.Controls.Add(this.autoGenerateButton);
-            this.investTab.Controls.Add(this.removeSymbolsButton);
-            this.investTab.Controls.Add(this.incomeDoubleButton);
-            this.investTab.Controls.Add(this.removeLettersButton);
-            this.investTab.Location = new System.Drawing.Point(4, 34);
-            this.investTab.Name = "investTab";
-            this.investTab.Size = new System.Drawing.Size(396, 223);
-            this.investTab.TabIndex = 2;
-            this.investTab.Text = "Invest";
-            this.investTab.ToolTipText = "Invest to make more QuikCoin";
-            this.investTab.UseVisualStyleBackColor = true;
+            this.InvestTab.BackColor = System.Drawing.Color.Thistle;
+            this.InvestTab.Controls.Add(this.AutoGenerateButton);
+            this.InvestTab.Controls.Add(this.RemoveSymbolsButton);
+            this.InvestTab.Controls.Add(this.IncomeDoubleButton);
+            this.InvestTab.Controls.Add(this.RemoveLettersButton);
+            this.InvestTab.Location = new System.Drawing.Point(4, 34);
+            this.InvestTab.Name = "InvestTab";
+            this.InvestTab.Size = new System.Drawing.Size(396, 223);
+            this.InvestTab.TabIndex = 2;
+            this.InvestTab.Text = "Invest";
+            this.InvestTab.ToolTipText = "Invest to make more QuikCoin";
             // 
-            // autoGenerateButton
+            // AutoGenerateButton
             // 
-            this.autoGenerateButton.Location = new System.Drawing.Point(0, 0);
-            this.autoGenerateButton.Name = "autoGenerateButton";
-            this.autoGenerateButton.Size = new System.Drawing.Size(200, 110);
-            this.autoGenerateButton.TabIndex = 4;
-            this.autoGenerateButton.Text = "Generate 1 Code Every 5 Seconds\r\n\r\nCost: 2 QuikCoin";
-            this.autoGenerateButton.UseVisualStyleBackColor = true;
-            this.autoGenerateButton.Click += new System.EventHandler(this.AutoGenerateButton_Click);
+            this.AutoGenerateButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.AutoGenerateButton.Location = new System.Drawing.Point(0, 0);
+            this.AutoGenerateButton.Name = "AutoGenerateButton";
+            this.AutoGenerateButton.Size = new System.Drawing.Size(200, 110);
+            this.AutoGenerateButton.TabIndex = 4;
+            this.AutoGenerateButton.Text = "Mine 1 Code Every 5 Seconds\r\n\r\nCost: 2 QuikCoin";
+            this.AutoGenerateButton.UseVisualStyleBackColor = true;
+            this.AutoGenerateButton.Click += new System.EventHandler(this.AutoGenerateButton_Click);
             // 
-            // removeSymbolsButton
+            // RemoveSymbolsButton
             // 
-            this.removeSymbolsButton.Location = new System.Drawing.Point(200, 110);
-            this.removeSymbolsButton.Name = "removeSymbolsButton";
-            this.removeSymbolsButton.Size = new System.Drawing.Size(200, 110);
-            this.removeSymbolsButton.TabIndex = 3;
-            this.removeSymbolsButton.Text = "Remove Symbols\r\n\r\n\r\nCost: 20 QuikCoin";
-            this.removeSymbolsButton.UseVisualStyleBackColor = true;
-            this.removeSymbolsButton.Click += new System.EventHandler(this.RemoveSymbolsButton_Click);
+            this.RemoveSymbolsButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.RemoveSymbolsButton.Location = new System.Drawing.Point(200, 110);
+            this.RemoveSymbolsButton.Name = "RemoveSymbolsButton";
+            this.RemoveSymbolsButton.Size = new System.Drawing.Size(200, 110);
+            this.RemoveSymbolsButton.TabIndex = 3;
+            this.RemoveSymbolsButton.Text = "Remove Symbols From CAPTCHA\r\n\r\nCost: 20 QuikCoin";
+            this.RemoveSymbolsButton.UseVisualStyleBackColor = true;
+            this.RemoveSymbolsButton.Click += new System.EventHandler(this.RemoveSymbolsButton_Click);
             // 
-            // incomeDoubleButton
+            // IncomeDoubleButton
             // 
-            this.incomeDoubleButton.Location = new System.Drawing.Point(200, 0);
-            this.incomeDoubleButton.Name = "incomeDoubleButton";
-            this.incomeDoubleButton.Size = new System.Drawing.Size(200, 110);
-            this.incomeDoubleButton.TabIndex = 2;
-            this.incomeDoubleButton.Text = "Doubles Manual Income\r\n\r\nCost: 5 QuikCoin\r\n";
-            this.incomeDoubleButton.UseVisualStyleBackColor = true;
-            this.incomeDoubleButton.Click += new System.EventHandler(this.IncomeDoubleButton_Click);
+            this.IncomeDoubleButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.IncomeDoubleButton.Location = new System.Drawing.Point(200, 0);
+            this.IncomeDoubleButton.Name = "IncomeDoubleButton";
+            this.IncomeDoubleButton.Size = new System.Drawing.Size(200, 110);
+            this.IncomeDoubleButton.TabIndex = 2;
+            this.IncomeDoubleButton.Text = "Doubles Manual Income\r\n\r\nCost: 5 QuikCoin\r\n";
+            this.IncomeDoubleButton.UseVisualStyleBackColor = true;
+            this.IncomeDoubleButton.Click += new System.EventHandler(this.IncomeDoubleButton_Click);
             // 
-            // removeLettersButton
+            // RemoveLettersButton
             // 
-            this.removeLettersButton.ImageAlign = System.Drawing.ContentAlignment.TopRight;
-            this.removeLettersButton.Location = new System.Drawing.Point(0, 110);
-            this.removeLettersButton.Name = "removeLettersButton";
-            this.removeLettersButton.Size = new System.Drawing.Size(200, 110);
-            this.removeLettersButton.TabIndex = 1;
-            this.removeLettersButton.Text = "Remove Letters\r\n\r\n\r\nCost: 10 QuikCoin";
-            this.removeLettersButton.UseVisualStyleBackColor = true;
-            this.removeLettersButton.Click += new System.EventHandler(this.RemoveLettersButton_Click);
+            this.RemoveLettersButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.RemoveLettersButton.ImageAlign = System.Drawing.ContentAlignment.TopRight;
+            this.RemoveLettersButton.Location = new System.Drawing.Point(0, 110);
+            this.RemoveLettersButton.Name = "RemoveLettersButton";
+            this.RemoveLettersButton.Size = new System.Drawing.Size(200, 110);
+            this.RemoveLettersButton.TabIndex = 1;
+            this.RemoveLettersButton.Text = "Remove Letters From CAPTCHA\r\n\r\nCost: 10 QuikCoin";
+            this.RemoveLettersButton.UseVisualStyleBackColor = true;
+            this.RemoveLettersButton.Click += new System.EventHandler(this.RemoveLettersButton_Click);
+            // 
+            // AntiVirusTimer
+            // 
+            this.AntiVirusTimer.Interval = 150000;
+            this.AntiVirusTimer.Tag = "";
+            this.AntiVirusTimer.Tick += new System.EventHandler(this.AntiVirusTimer_Tick);
             // 
             // QuickCoinMiner
             // 
@@ -363,52 +389,55 @@ namespace CryptoApplication
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(404, 261);
             this.Controls.Add(this.panel1);
+            this.Cursor = System.Windows.Forms.Cursors.Hand;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "QuickCoinMiner";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "QuikCoin Miner";
             this.Load += new System.EventHandler(this.QuickCoinMiner_Load);
             this.panel1.ResumeLayout(false);
-            this.tabControl1.ResumeLayout(false);
-            this.walletTab.ResumeLayout(false);
-            this.walletTab.PerformLayout();
-            this.earnTab.ResumeLayout(false);
-            this.earnTab.PerformLayout();
-            this.investTab.ResumeLayout(false);
+            this.TabControl.ResumeLayout(false);
+            this.WalletTab.ResumeLayout(false);
+            this.WalletTab.PerformLayout();
+            this.EarnTab.ResumeLayout(false);
+            this.EarnTab.PerformLayout();
+            this.InvestTab.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
 
         #endregion
-        private System.Windows.Forms.Timer cashoutTimer;
-        private System.Windows.Forms.ToolTip toolTip1;
-        private System.Windows.Forms.Timer warningTimer;
-        private System.Windows.Forms.Timer investmentTimer;
+        private System.Windows.Forms.Timer CashoutTimer;
+        private System.Windows.Forms.Timer WarningTimer;
+        private System.Windows.Forms.Timer InvestmentTimer;
         private Panel panel1;
-        private TabControl tabControl1;
-        private TabPage walletTab;
+        private TabControl TabControl;
+        private TabPage WalletTab;
         private Button button1;
-        private Label resourceLabel;
-        private Label label2;
-        private Label cashoutTimerLabel;
-        private Label label1;
-        private TabPage earnTab;
-        private Label verifiedLabel;
-        private Label verificationWarningLabel;
+        private Label ResourceLabel;
+        private Label BalanceTitleLabel;
+        private Label CashoutTimerLabel;
+        private Label CashoutAvailableLabel;
+        private TabPage EarnTab;
+        private Label VerifiedLabel;
+        private Label VerificationWarningLabel;
         private Label label5;
-        private Label label4;
+        private Label EarnLabel;
         private Label label3;
-        private TextBox verifyTextBox;
-        private TextBox captchaTextBox;
-        private Button verifyButton;
-        private Button generateButton;
-        private TabPage investTab;
-        private Button autoGenerateButton;
-        private Button removeSymbolsButton;
-        private Button incomeDoubleButton;
-        private Button removeLettersButton;
+        private TextBox VerifyTextBox;
+        private TextBox CaptchaTextBox;
+        private Button VerifyButton;
+        private Button GenerateButton;
+        private TabPage InvestTab;
+        private Button AutoGenerateButton;
+        private Button RemoveSymbolsButton;
+        private Button IncomeDoubleButton;
+        private Button RemoveLettersButton;
+        private Timer AntiVirusTimer;
+        private Button CashoutButton;
     }
 }
 

@@ -4,39 +4,57 @@ using System.Drawing.Text;
 using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
-using CryptoApplication.Objects;
-using Tulpep.NotificationWindow;
 
-namespace CryptoApplication
+namespace CryptoApplication.Objects
 {
     public partial class QuickCoinMiner : Form
     {
-        static Wallet _wallet;
+        private static Wallet _wallet;
         private static Virus _virus;
         private static AntiVirus _antiVirus;
-
-        // Class Fields
-        private int MinutesLeft { get; set; } = 10;
-        private int SecondsLeft { get; set; }
         private static readonly Random Random = new Random();
 
-        private bool _incomeDoubled;
-        private bool _symbolsRemoved;
-        private bool _lettersRemoved; 
-  
+        // Statistics for end screen
+        private int _codeCount;
+        private int _upgradeCount;
+
         // Currently generated code
         private string _generatedCode;
+
+        // Upgrade booleans
+        private bool _investmentBought;
+        private bool _incomeDoubled;
+        private bool _lettersRemoved;
+        private bool _symbolsRemoved;
+
+        // Timer booleans
+        private int MinutesLeft { get; set; } = 10;
+        private int SecondsLeft { get; set; }
+
+        /**
+         * Constructor
+         */
+        public QuickCoinMiner()
+        {
+            InitializeComponent();
+            CashoutTimer.Start();
+        }
+
+
 
 
         private void QuickCoinMiner_Load(object sender, EventArgs e)
         {
-            _wallet = new Wallet(this);
-            _virus = new Virus(_wallet, resourceLabel);
-            _antiVirus = new AntiVirus(_wallet, resourceLabel);
-            PrivateFontCollection pfc = new PrivateFontCollection();
-            pfc.AddFontFile(@"E:\Users\Shaw\Desktop\C#\CryptoApplication\CryptoApplication\Resources\Static-2.ttf");
-            captchaTextBox.Font = new Font(pfc.Families[0], 27, FontStyle.Regular);
+            _wallet = new Wallet();
+            _virus = new Virus(_wallet, ResourceLabel, VerifyTextBox, InvestmentTimer, _investmentBought);
+            _antiVirus = new AntiVirus(_wallet, ResourceLabel, _virus);
+            _upgradeCount = 0;
+            //var pfc = new PrivateFontCollection();
+            //pfc.AddFontFile(@"E:\Users\Shaw\Desktop\C#\CryptoApplication\CryptoApplication\Resources\Static-2.ttf");
+            //CaptchaTextBox.Font = new Font(pfc.Families[0], 27, FontStyle.Regular);
+            AntiVirusTimer.Start();
         }
+
         /**
          * Method to generate random alphanumeric string with symbols.
          */
@@ -50,27 +68,19 @@ namespace CryptoApplication
 
             // If symbols ARE removed and letters ARE removed
             if (_symbolsRemoved && _lettersRemoved)
-            {
                 charsToUse = numbers;
-            } else
-
-            // If symbols are NOT removed and letters are NOT removed
+            else
+                // If symbols are NOT removed and letters are NOT removed
             if (!_symbolsRemoved && !_lettersRemoved)
-            {
                 charsToUse = numbers + letters + symbols;
-            } else
-
-            // If symbols ARE removed and letters are NOT removed
+            else
+                // If symbols ARE removed and letters are NOT removed
             if (_symbolsRemoved && !_lettersRemoved)
-            {
                 charsToUse = numbers + letters;
-            } else
+            else
 
-            // if symbols are NOT removed and letters ARE removed
-            if (!_symbolsRemoved && _lettersRemoved)
-            {
-                charsToUse = numbers + symbols;
-            }
+                // if symbols are NOT removed and letters ARE removed
+            if (!_symbolsRemoved && _lettersRemoved) charsToUse = numbers + symbols;
             return new string(Enumerable.Repeat(charsToUse, length)
                 .Select(s => s[Random.Next(s.Length)]).ToArray());
         }
@@ -86,21 +96,14 @@ namespace CryptoApplication
          */
         private void GenerateCode()
         {
-                var newCode = BuildCode(5) + "-" + BuildCode(5);
-                _generatedCode = newCode;
-                captchaTextBox.Text = _generatedCode;
-        }
-    
-        //Constructor
-        public QuickCoinMiner()
-        {
-            InitializeComponent();
-            cashoutTimer.Start();
+            var newCode = BuildCode(5) + "-" + BuildCode(5);
+            _generatedCode = newCode;
+            CaptchaTextBox.Text = _generatedCode;
         }
 
 
         // Simple 10 Minute clock method
-        private void cashoutTimer_Tick(object sender, EventArgs e)
+        private void CashoutTimer_Tick(object sender, EventArgs e)
         {
             if (SecondsLeft == 0)
             {
@@ -113,46 +116,49 @@ namespace CryptoApplication
             }
 
             if (SecondsLeft < 10)
-            {
-                cashoutTimerLabel.Text = MinutesLeft + ":0" + SecondsLeft;
-            }
+                CashoutTimerLabel.Text = MinutesLeft + ":0" + SecondsLeft;
             else
-            {
-                cashoutTimerLabel.Text = MinutesLeft + ":" + SecondsLeft;
-            }
+                CashoutTimerLabel.Text = MinutesLeft + ":" + SecondsLeft;
 
-            if (MinutesLeft == 0 && SecondsLeft == 0)
-            {
-                cashoutTimer.Stop();
-                MessageBox.Show("Time's up! You made " + _wallet.Balance.ToString() + " QuikCoin.");
-            }            
+            if (MinutesLeft != 0 || SecondsLeft != 0) return;
+            CashoutTimer.Stop();
+            InvestmentTimer.Stop();
+            VerifyTextBox.Enabled = false;
+            CashoutButton.Visible = true;
         }
 
         /**
          * Method to handle the event of a the "generate" button being pressed.
          * Generates a new code.
          */
-        private void generateButton_Click(object sender, EventArgs e)
+        private void GenerateButton_Click(object sender, EventArgs e)
         {
             GenerateCode();
         }
 
-
-        private void verifyButton_Click(object sender, EventArgs e)
+        /**
+         * Method to handle the event the "verify" button being pressed.
+         *
+         * Verifies the user entered code against the pre-generated one.
+         * If the codes match, the user is rewarded with some cryptocurrency.
+         * This reward is dependent on certain upgrades.
+         */
+        private void VerifyButton_Click(object sender, EventArgs e)
         {
             if (_generatedCode == null)
             {
                 GenerateCode();
-                captchaTextBox.Text = _generatedCode;
+                CaptchaTextBox.Text = _generatedCode;
                 MessageBox.Show("You hadn't generated a code yet, " +
                                 "a new one has been generated for you.");
             }
             else
             {
-                var userInput = verifyTextBox.Text;
+                var userInput = VerifyTextBox.Text;
 
-                if (_generatedCode.Equals(userInput))
+                if (_generatedCode.Equals(userInput.ToUpper()))
                 {
+                    // If upgrade purchased, increase balance twice.
                     if (_incomeDoubled)
                     {
                         _wallet.IncreaseBalance();
@@ -163,110 +169,165 @@ namespace CryptoApplication
                         _wallet.IncreaseBalance();
                     }
 
-                    resourceLabel.Text = _wallet.Balance.ToString();
+                    _codeCount++;
+                    ResourceLabel.Text = _wallet.Balance.ToString(CultureInfo.InvariantCulture);
                     GenerateCode();
-                    verifiedLabel.Visible = true;
-                    warningTimer.Start();
-                    verifyTextBox.Text = "";
+                    VerifiedLabel.Visible = true;
+                    WarningTimer.Start();
+                    VerifyTextBox.Text = "";
                     return;
                 }
 
-                verificationWarningLabel.Text = "Incorrect Code";
-                verifyTextBox.Text = "";
-                verificationWarningLabel.Visible = true;
-                warningTimer.Start();
+                //If the code is incorrect, generate a new one.
+                VerificationWarningLabel.Text = "Incorrect Code";
+                VerifyTextBox.Text = "";
+                VerificationWarningLabel.Visible = true;
+                WarningTimer.Start();
             }
         }
 
-        private void warningTimer_Tick(object sender, EventArgs e)
+       
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void WarningTimer_Tick(object sender, EventArgs e)
         {
-            verificationWarningLabel.Visible = false;
-            verifiedLabel.Visible = false;
-            warningTimer.Stop();
+            VerificationWarningLabel.Visible = false;
+            VerifiedLabel.Visible = false;
+            WarningTimer.Stop();
         }
 
-   
-        private void investmentTimer_Tick(object sender, EventArgs e)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void InvestmentTimer_Tick(object sender, EventArgs e)
         {
             _wallet.IncreaseBalance();
-            resourceLabel.Text = _wallet.Balance.ToString();
+            ResourceLabel.Text = _wallet.Balance.ToString(CultureInfo.InvariantCulture);
         }
 
-
-        private void verifyTextBox_KeyUp(object sender, KeyEventArgs e)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void VerifyTextBox_KeyUp(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Enter)
-            {
-                verifyButton.PerformClick();
-            }
+            if (e.KeyCode == Keys.Enter) VerifyButton.PerformClick();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void AutoGenerateButton_Click(object sender, EventArgs e)
         {
-            if (_wallet.Balance < 2)
-            {
-                return;
-            }
+            if (_wallet.Balance < 2) return;
+            _upgradeCount++;
             _wallet.Balance -= 2;
-            resourceLabel.Text = _wallet.Balance.ToString(CultureInfo.InvariantCulture);
-            autoGenerateButton.Enabled = false;
-            autoGenerateButton.Text = "Generate 1 Code Every 5 Seconds\r\n\r\nPurchased!";
-            investmentTimer.Start();
+            ResourceLabel.Text = _wallet.Balance.ToString(CultureInfo.InvariantCulture);
+            AutoGenerateButton.Enabled = false;
+            AutoGenerateButton.Text = "Generate 1 Code Every 5 Seconds\r\n\r\nPurchased!";
+            InvestmentTimer.Start();
+            _investmentBought = true;
             MessageBox.Show("Investment Successful.");
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void IncomeDoubleButton_Click(object sender, EventArgs e)
         {
-            if (_wallet.Balance < 5)
-            {
-                return;
-            }
+            if (_wallet.Balance < 5) return;
+            _upgradeCount++;
             _wallet.Balance -= 5;
-            resourceLabel.Text = _wallet.Balance.ToString(CultureInfo.InvariantCulture);
+            ResourceLabel.Text = _wallet.Balance.ToString(CultureInfo.InvariantCulture);
             _incomeDoubled = true;
-            incomeDoubleButton.Enabled = false;
-            autoGenerateButton.Text = "Doubles Manual Income\r\n\r\nPurchased!";
-            investmentTimer.Start();
+            IncomeDoubleButton.Enabled = false;
+            AutoGenerateButton.Text = "Doubles Manual Income\r\n\r\nPurchased!";
+            InvestmentTimer.Start();
             MessageBox.Show("Investment Successful.");
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void RemoveLettersButton_Click(object sender, EventArgs e)
         {
-            if (_wallet.Balance == 10)
-            {
-                return;
-            }
+            if (_wallet.Balance == 10) return;
+            _upgradeCount++;
             _wallet.Balance -= 10;
-            resourceLabel.Text = _wallet.Balance.ToString(CultureInfo.InvariantCulture);
+            ResourceLabel.Text = _wallet.Balance.ToString(CultureInfo.InvariantCulture);
             _lettersRemoved = true;
-            removeLettersButton.Text = "Remove Letters\r\n\r\n\r\nPurchased!";
-            removeLettersButton.Enabled = false;
+            RemoveLettersButton.Text = "Remove Letters\r\n\r\n\r\nPurchased!";
+            RemoveLettersButton.Enabled = false;
             MessageBox.Show("Investment Successful.");
-
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void RemoveSymbolsButton_Click(object sender, EventArgs e)
         {
-            if (_wallet.Balance < 20)
-            {
-                return;
-            }
+            if (_wallet.Balance < 20) return;
+            _upgradeCount++;
             _wallet.Balance -= 20;
-            resourceLabel.Text = _wallet.Balance.ToString(CultureInfo.InvariantCulture);
+            ResourceLabel.Text = _wallet.Balance.ToString(CultureInfo.InvariantCulture);
             _symbolsRemoved = true;
-            removeSymbolsButton.Text = "Remove Symbols\r\n\r\n\r\nPurchased!";
-            removeSymbolsButton.Enabled = false;
-            MessageBox.Show("Investment Successful.");            
+            RemoveSymbolsButton.Text = "Remove Symbols\r\n\r\n\r\nPurchased!";
+            RemoveSymbolsButton.Enabled = false;
+            MessageBox.Show("Investment Successful.");
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Button1_Click(object sender, EventArgs e)
         {
             _wallet.IncreaseBalance();
-            resourceLabel.Text = _wallet.Balance.ToString();
-
-            _antiVirus.Show();
+            ResourceLabel.Text = _wallet.Balance.ToString(CultureInfo.CurrentCulture);
+            CashoutButton.Visible = true;
 
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void AntiVirusTimer_Tick(object sender, EventArgs e)
+        {
+            if (_virus.IsActive) return;
+            _antiVirus.Show();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void CashoutButton_Click(object sender, EventArgs e)
+        {
+
+            Hide();
+            var postGameWindow = new PostGameWindow(_wallet, _codeCount, _upgradeCount);
+            postGameWindow.Closed += (s, args) => this.Close();
+            _virus.hackTimer.Stop();
+            AntiVirusTimer.Stop();
+            postGameWindow.Show();                 
+        }
     }
 }
